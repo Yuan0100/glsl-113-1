@@ -2,9 +2,6 @@
 import { Image } from "astro:assets";
 import projectsData from "../contents/data.json";
 import { SITE_TITLE } from "../consts";
-import { respondTo, breakpoints } from "../utils/responsive";
-
-const respondToMd = respondTo.md;
 
 const sortedProjects = projectsData.sort(
   (a, b) => Number(a["學號"]) - Number(b["學號"]),
@@ -21,7 +18,7 @@ const sortedProjects = projectsData.sort(
             {project["示意圖"] ? (
               <Image
                 class="project_img"
-                src={`/assets/images/${project["示意圖"]}`}
+                src={`/glsl-113-1/assets/images/${project["示意圖"]}`}
                 alt={project["作品名稱"]}
                 width={300}
                 height={300}
