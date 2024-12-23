@@ -14,28 +14,32 @@ const sortedProjects = projectsData.sort(
     <section class="projects_list">
       {
         sortedProjects.map((project) => (
-          <div class="project_item">
-            {project["示意圖"] ? (
-              <Image
-                class="project_img"
-                src={`/glsl-113-1/assets/images/${project["示意圖"]}`}
-                alt={project["作品名稱"]}
-                width={300}
-                height={300}
-              />
-            ) : (
-              <div class="project_img" style="width: 300px;" />
+          <>
+            {project["示意圖"] && (
+              <div class="project_item">
+                {project["示意圖"] ? (
+                  <Image
+                    class="project_img"
+                    src={`/glsl-113-1/assets/images/${project["示意圖"]}`}
+                    alt={project["作品名稱"]}
+                    width={300}
+                    height={300}
+                  />
+                ) : (
+                  <div class="project_img" style="width: 300px;" />
+                )}
+                <div class="project_text_area">
+                  <h3 class="project_title">
+                    {project["作品名稱"] ? project["作品名稱"] : "無題"}
+                  </h3>
+                  <small>{project["姓名"]}</small>
+                </div>
+                <a href={project["連結"]} class="project_link">
+                  ↗ View in Looking Glass Block
+                </a>
+              </div>
             )}
-            <div class="project_text_area">
-              <h3 class="project_title">
-                {project["作品名稱"] ? project["作品名稱"] : "無題"}
-              </h3>
-              <small>{project["姓名"]}</small>
-            </div>
-            <a href={project["連結"]} class="project_link">
-              ↗ View in Looking Glass Block
-            </a>
-          </div>
+          </>
         ))
       }
     </section>
