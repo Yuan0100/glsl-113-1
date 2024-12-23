@@ -1,0 +1,111 @@
+---
+import "swiper/css";
+import "swiper/css/autoplay";
+import "swiper/css/pagination";
+
+import projectsData from "../contents/data.json";
+import Image from "astro/components/Image.astro";
+
+const sortedProjects = projectsData.sort(
+  (a, b) => Number(a["學號"]) - Number(b["學號"]),
+);
+---
+
+<div class="slider_container">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {
+        sortedProjects.map((project) => (
+          <div class="swiper-slide">
+            <div class="project">
+              <h3 class="project_title">
+                {project["作品名稱"] ? project["作品名稱"] : "無題"}
+              </h3>
+              {project["示意圖"] ? (
+                <Image
+                  class="project_img"
+                  src={`/glsl-113-1/assets/images/${project["示意圖"]}`}
+                  alt={project["作品名稱"]}
+                  width={600}
+                  height={600}
+                />
+              ) : (
+                <div class="project_img" style="width: 600px;" />
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<script>
+  // core version + navigation, pagination modules:
+  import Swiper from "swiper";
+  // import { Navigation, Pagination } from "swiper/modules";
+  import { Autoplay, Pagination } from "swiper/modules";
+
+  // init Swiper:
+  const swiper = new Swiper(".swiper", {
+    modules: [Autoplay, Pagination],
+    speed: 500,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
+
+<style>
+  .slider_container {
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper {
+    width: 100%;
+    overflow: visible;
+    /* height: 100%; */
+  }
+
+  .swiper-pagination {
+    transform: translateY(150%);
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+  }
+
+  .project_title {
+    font-size: 1.2em;
+    margin: 0;
+  }
+
+  .project_img {
+    object-fit: contain;
+    background-color: hsl(var(--black));
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+</style>
