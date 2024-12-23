@@ -26,10 +26,12 @@ const sortedProjects = projectsData.sort(
             ) : (
               <div class="project_img" style="width: 300px;" />
             )}
-            {/* <h3>{project["學號"]}</h3> */}
-            <h3 class="project_title">
-              {project["作品名稱"] ? project["作品名稱"] : "無題"}
-            </h3>
+            <div class="project_text_area">
+              <h3 class="project_title">
+                {project["作品名稱"] ? project["作品名稱"] : "無題"}
+              </h3>
+              <small>{project["姓名"]}</small>
+            </div>
             <a href={project["連結"]} class="project_link">
               ↗ View in Looking Glass Block
             </a>
@@ -59,7 +61,7 @@ const sortedProjects = projectsData.sort(
   .project_item {
     display: flex;
     flex-direction: column;
-    margin: 1em;
+    margin: 2em 1em;
   }
 
   .project_img {
@@ -70,10 +72,18 @@ const sortedProjects = projectsData.sort(
     height: auto;
   }
 
+  .project_text_area {
+    margin-top: 1em;
+    margin-bottom: 0.25em;
+
+    small {
+      font-size: 0.7em;
+    }
+  }
+
   .project_title {
     font-size: 1.2em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin: 0;
   }
 
   .project_link {
