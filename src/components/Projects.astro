@@ -1,0 +1,102 @@
+---
+import { Image } from "astro:assets";
+import projectsData from "../contents/data.json";
+import { SITE_TITLE } from "../consts";
+import { respondTo, breakpoints } from "../utils/responsive";
+
+const respondToMd = respondTo.md;
+
+const sortedProjects = projectsData.sort(
+  (a, b) => Number(a["學號"]) - Number(b["學號"]),
+);
+---
+
+<div class="container">
+  <main>
+    <h1>{SITE_TITLE}</h1>
+    <section class="projects_list">
+      {
+        sortedProjects.map((project) => (
+          <div class="project_item">
+            {project["示意圖"] ? (
+              <Image
+                class="project_img"
+                src={`/assets/images/${project["示意圖"]}`}
+                alt={project["作品名稱"]}
+                width={300}
+                height={300}
+              />
+            ) : (
+              <div class="project_img" style="width: 300px;" />
+            )}
+            {/* <h3>{project["學號"]}</h3> */}
+            <h3 class="project_title">
+              {project["作品名稱"] ? project["作品名稱"] : "無題"}
+            </h3>
+            <a href={project["連結"]} class="project_link">
+              ↗ View in Looking Glass Block
+            </a>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</div>
+
+<style>
+  h1 {
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+
+  .projects_list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    width: 100%;
+    margin-top: 3em;
+  }
+
+  .project_item {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+  }
+
+  .project_img {
+    object-fit: contain;
+    background-color: hsl(var(--black));
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .project_title {
+    font-size: 1.2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .project_link {
+    font-size: 0.7em;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .projects_list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 576px) {
+    .projects_list {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .project_img {
+      width: 240px !important;
+    }
+  }
+</style>
